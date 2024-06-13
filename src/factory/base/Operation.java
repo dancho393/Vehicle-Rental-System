@@ -1,4 +1,5 @@
 package factory.base;
 
-public interface Operation {
+public interface Operation <I extends OperationRequest,O extends OperationResponse> {
+    O process(I input);
 }
