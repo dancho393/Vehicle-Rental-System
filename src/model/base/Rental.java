@@ -14,12 +14,14 @@ public class Rental {
     private int actualDays;
     private Invoice invoice;
 
-    public Rental(LocalDate fromDate, LocalDate returnDate, Vehicle vehicle, LocalDate actualReturn, Invoice invoice) {
-        this.fromDate = fromDate;
-        this.returnDate = returnDate;
-        this.vehicle = vehicle;
+
+    public Rental(int actualDays, int days, LocalDate actualReturn, Vehicle vehicle, LocalDate returnDate, LocalDate fromDate) {
+        this.actualDays = actualDays;
+        this.days = days;
         this.actualReturn = actualReturn;
-        this.invoice = invoice;
+        this.vehicle = vehicle;
+        this.returnDate = returnDate;
+        this.fromDate = fromDate;
     }
 
     public LocalDate getFromDate() {
@@ -54,11 +56,40 @@ public class Rental {
         this.actualReturn = actualReturn;
     }
 
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
+    }
+
+    public int getActualDays() {
+        return actualDays;
+    }
+
+    public void setActualDays(int actualDays) {
+        this.actualDays = actualDays;
+    }
+
     public Invoice getInvoice() {
         return invoice;
     }
 
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
+    }
+
+    @Override
+    public String toString() {
+        return "Rental{" +
+                "fromDate=" + fromDate +
+                ", returnDate=" + returnDate +
+                ", vehicle=" + vehicle +
+                ", actualReturn=" + actualReturn +
+                ", days=" + days +
+                ", actualDays=" + actualDays +
+                ", invoice=" + invoice +
+                '}';
     }
 }

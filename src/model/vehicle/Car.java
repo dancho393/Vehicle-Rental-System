@@ -15,11 +15,29 @@ public class Car extends Vehicle {
                Double shortPeriodRentalPrice,
                Double longPeriodRentalPrice,
                Set<Rental> rentals,
+               Double insurancePercentagePerDay,
                int rating) {
-        super(brand, model, value, shortPeriodRentalPrice, longPeriodRentalPrice, rentals);
+        super(brand, model, value, shortPeriodRentalPrice, longPeriodRentalPrice, rentals, insurancePercentagePerDay);
         this.rating = rating;
         this.isHighlySafe = checkIsHighlySafe(rating);
     }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public boolean isHighlySafe() {
+        return isHighlySafe;
+    }
+
+    public void setHighlySafe(boolean highlySafe) {
+        isHighlySafe = highlySafe;
+    }
+
     private boolean checkIsHighlySafe(int rating){
         return rating>=4;
     };

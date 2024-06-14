@@ -7,7 +7,8 @@ import java.util.Set;
 
 public class Van extends Vehicle {
 
-    public Van(String brand, String model, Double value, Double shortPeriodRentalPrice, Double longPeriodRentalPrice, Set<Rental> rentals) {
-        super(brand, model, value, shortPeriodRentalPrice, longPeriodRentalPrice, rentals);
+
+    public Van(String brand, String model, Double value, Double shortPeriodRentalPrice, Double longPeriodRentalPrice, Set<Rental> rentals, Double insurancePercentagePerDay) {
+        super(brand, model, value, shortPeriodRentalPrice, longPeriodRentalPrice, rentals, insurancePercentagePerDay);
     }
 }

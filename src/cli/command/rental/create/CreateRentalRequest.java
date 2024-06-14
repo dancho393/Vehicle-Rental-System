@@ -1,6 +1,7 @@
 package cli.command.rental.create;
 
 import cli.base.CommandRequest;
+import model.base.Vehicle;
 
 import java.time.LocalDate;
 
@@ -8,13 +9,19 @@ public class CreateRentalRequest implements CommandRequest {
     private String brand;
     private String model;
     private LocalDate fromDate;
-    private LocalDate toDate;
+    private LocalDate returnDate;
+    private LocalDate actualReturn;
+    private int days;
+    private int actualDays;
 
-    public CreateRentalRequest(String brand, String model, LocalDate fromDate, LocalDate toDate) {
+    public CreateRentalRequest(String brand, String model, LocalDate fromDate, LocalDate returnDate, LocalDate actualReturn, int days, int actualDays) {
         this.brand = brand;
         this.model = model;
         this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.returnDate = returnDate;
+        this.actualReturn = actualReturn;
+        this.days = days;
+        this.actualDays = actualDays;
     }
 
     public String getBrand() {
@@ -41,11 +48,35 @@ public class CreateRentalRequest implements CommandRequest {
         this.fromDate = fromDate;
     }
 
-    public LocalDate getToDate() {
-        return toDate;
+    public LocalDate getReturnDate() {
+        return returnDate;
     }
 
-    public void setToDate(LocalDate toDate) {
-        this.toDate = toDate;
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public LocalDate getActualReturn() {
+        return actualReturn;
+    }
+
+    public void setActualReturn(LocalDate actualReturn) {
+        this.actualReturn = actualReturn;
+    }
+
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
+    }
+
+    public int getActualDays() {
+        return actualDays;
+    }
+
+    public void setActualDays(int actualDays) {
+        this.actualDays = actualDays;
     }
 }
