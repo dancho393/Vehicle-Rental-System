@@ -82,14 +82,16 @@ public class Rental {
 
     @Override
     public String toString() {
-        return "Rental{" +
-                "fromDate=" + fromDate +
-                ", returnDate=" + returnDate +
-                ", vehicle=" + vehicle +
-                ", actualReturn=" + actualReturn +
-                ", days=" + days +
-                ", actualDays=" + actualDays +
-                ", invoice=" + invoice +
-                '}';
+        return "Rented Vehicle: " +vehicle.getBrand()+" "+vehicle.getModel()+"\n"
+                + "From Date: "+fromDate+"\n"
+                + "Return Date: "+returnDate
+                +"\n"+"Days: "+days+"\n"
+                +"Actual/Days: "+actualDays+"\n"
+                +"Rental Cost Per Day:"+invoice.getRentalCostPerDay()+"\n"
+                +"Insurance Cost Per Day:"+invoice.getInsuranceCostPerDay()+"\n"
+                +"Total Rent:"+invoice.getTotalRentCost()+"\n"
+                +"Total Insurance:"+invoice.getTotalInsuranceCost()+"\n"
+                +"Total Price:"+invoice.getTotalPrice()+"\n";
+
     }
 }

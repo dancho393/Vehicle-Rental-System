@@ -4,27 +4,26 @@ import cli.base.CommandResponse;
 import model.base.Rental;
 
 public class CreateRentalResponse implements CommandResponse {
-    private Rental rental;
+    private String rental;
     private String message;
 
-    @Override
-    public String toString() {
-        return "CreateRentalResponse{" +
-                "rental=" + rental.toString() +
-                ", message='" + message + '\'' +
-                '}';
-    }
-
-    public CreateRentalResponse(Rental rental, String message) {
+    public CreateRentalResponse(String rental, String message) {
         this.rental = rental;
         this.message = message;
     }
 
-    public Rental getRental() {
+    @Override
+    public String toString() {
+        return
+                "rental='" + rental + '\'' +
+                ", message='" + message + '\'' ;
+    }
+
+    public String getRental() {
         return rental;
     }
 
-    public void setRental(Rental rental) {
+    public void setRental(String rental) {
         this.rental = rental;
     }
 

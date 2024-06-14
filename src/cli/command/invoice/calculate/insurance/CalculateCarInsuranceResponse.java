@@ -28,7 +28,7 @@ public class CalculateCarInsuranceResponse implements CommandResponse {
 
     @Override
     public String toString() {
-        return "CalculateCarInsuranceResponse{" +
+        return "Insurance{" +
                 "initialInsurancePerDay=" + initialInsurancePerDay +
                 ", earlyReturnDiscount=" + earlyReturnDiscount +
                 ", highSafetyDiscount=" + highSafetyDiscount +

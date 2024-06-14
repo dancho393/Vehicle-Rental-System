@@ -8,15 +8,17 @@ public class Invoice {
     private Double insuranceCostPerDay;
     private Double totalRentCost;
     private Double totalInsuranceCost;
-    private Double totalTax;
+    private Double discountedMoney;
+    private Double totalPrice;
 
-    public Invoice(Rental rental, Double rentalCostPerDay, Double insuranceCostPerDay, Double totalRentCost, Double totalInsuranceCost, Double totalTax) {
+    public Invoice(Rental rental, Double rentalCostPerDay, Double insuranceCostPerDay, Double totalRentCost, Double totalInsuranceCost, Double discountedMoney, Double totalPrice) {
         this.rental = rental;
         this.rentalCostPerDay = rentalCostPerDay;
         this.insuranceCostPerDay = insuranceCostPerDay;
         this.totalRentCost = totalRentCost;
         this.totalInsuranceCost = totalInsuranceCost;
-        this.totalTax = totalTax;
+        this.discountedMoney = discountedMoney;
+        this.totalPrice = totalPrice;
     }
 
     public Rental getRental() {
@@ -59,11 +61,19 @@ public class Invoice {
         this.totalInsuranceCost = totalInsuranceCost;
     }
 
-    public Double getTotalTax() {
-        return totalTax;
+    public Double getDiscountedMoney() {
+        return discountedMoney;
     }
 
-    public void setTotalTax(Double totalTax) {
-        this.totalTax = totalTax;
+    public void setDiscountedMoney(Double discountedMoney) {
+        this.discountedMoney = discountedMoney;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

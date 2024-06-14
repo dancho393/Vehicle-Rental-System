@@ -1,12 +1,14 @@
 package config;
 
 import cli.command.invoice.calculate.insurance.CalculateCarInsuranceCommand;
+import cli.command.invoice.calculate.rental.CalculateCarRentalCommand;
 import cli.command.rental.create.CreateRentalCommand;
 import cli.command.rental.create.CreateRentalRequest;
 import cli.command.user.create.CreateUserCommand;
 import cli.command.user.create.CreateUserRequest;
 import cli.command.vehicle.find.FindVehicleCommand;
 import cli.impl.invoice.CalculateCarInsurance;
+import cli.impl.invoice.CalculateCarRental;
 import cli.impl.rental.CreateRental;
 import cli.impl.user.CreateUser;
 import cli.impl.vehicle.FindVehicle;
@@ -60,8 +62,10 @@ public class StartUpData {
             );
             FindVehicleCommand findVehicleCommand = new FindVehicle();
             CalculateCarInsuranceCommand calculateCarInsuranceCommand= new CalculateCarInsurance();
-            CreateRentalCommand createRentalCommand = new CreateRental(findVehicleCommand,calculateCarInsuranceCommand);
-            createRentalCommand.execute(request);
+        CalculateCarRentalCommand calculateCarRentalCommand = new CalculateCarRental();
+
+            CreateRentalCommand createRentalCommand = new CreateRental(findVehicleCommand,calculateCarInsuranceCommand,calculateCarRentalCommand);
+            System.out.println(createRentalCommand.execute(request).toString());
         }
 
 }
