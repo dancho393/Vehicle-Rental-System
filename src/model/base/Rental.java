@@ -1,16 +1,25 @@
 package model.base;
 
+import model.Invoice;
+
 import java.time.LocalDate;
+
 
 public class Rental {
     private LocalDate fromDate;
-    private LocalDate toDate;
+    private LocalDate returnDate;
     private Vehicle vehicle;
+    private LocalDate actualReturn;
+    private int days;
+    private int actualDays;
+    private Invoice invoice;
 
-    public Rental(LocalDate fromDate, LocalDate toDate, Vehicle vehicle) {
+    public Rental(LocalDate fromDate, LocalDate returnDate, Vehicle vehicle, LocalDate actualReturn, Invoice invoice) {
         this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.returnDate = returnDate;
         this.vehicle = vehicle;
+        this.actualReturn = actualReturn;
+        this.invoice = invoice;
     }
 
     public LocalDate getFromDate() {
@@ -21,12 +30,12 @@ public class Rental {
         this.fromDate = fromDate;
     }
 
-    public LocalDate getToDate() {
-        return toDate;
+    public LocalDate getReturnDate() {
+        return returnDate;
     }
 
-    public void setToDate(LocalDate toDate) {
-        this.toDate = toDate;
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
     }
 
     public Vehicle getVehicle() {
@@ -35,5 +44,21 @@ public class Rental {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public LocalDate getActualReturn() {
+        return actualReturn;
+    }
+
+    public void setActualReturn(LocalDate actualReturn) {
+        this.actualReturn = actualReturn;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 }
