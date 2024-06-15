@@ -1,4 +1,4 @@
-package cli.command.invoice.calculate.insurance;
+package cli.command.invoice.calculate.car.insurance;
 
 import cli.base.Command;
 

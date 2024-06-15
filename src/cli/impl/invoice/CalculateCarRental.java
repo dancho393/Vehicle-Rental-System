@@ -1,8 +1,8 @@
 package cli.impl.invoice;
 
-import cli.command.invoice.calculate.rental.CalculateCarRentalCommand;
-import cli.command.invoice.calculate.rental.CalculateCarRentalRequest;
-import cli.command.invoice.calculate.rental.CalculateCarRentalResponse;
+import cli.command.invoice.calculate.car.rental.CalculateCarRentalCommand;
+import cli.command.invoice.calculate.car.rental.CalculateCarRentalRequest;
+import cli.command.invoice.calculate.car.rental.CalculateCarRentalResponse;
 
 public class CalculateCarRental implements CalculateCarRentalCommand {
     @Override
@@ -38,7 +38,7 @@ public class CalculateCarRental implements CalculateCarRentalCommand {
         }
         return rentalPrice;
     }
-    public double roundNumber(double number){
+    private double roundNumber(double number){
         return Math.round(number*100.0)/100.0;
     }
 }

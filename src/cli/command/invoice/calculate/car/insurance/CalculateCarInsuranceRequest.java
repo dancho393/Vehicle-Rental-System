@@ -1,7 +1,6 @@
-package cli.command.invoice.calculate.insurance;
+package cli.command.invoice.calculate.car.insurance;
 
 import cli.base.CommandRequest;
-import model.base.Vehicle;
 import model.vehicle.Car;
 
 public class CalculateCarInsuranceRequest implements CommandRequest {

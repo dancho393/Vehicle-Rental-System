@@ -1,4 +1,4 @@
-package cli.command.invoice.calculate.rental;
+package cli.command.invoice.calculate.car.rental;
 
 import cli.base.CommandRequest;
 import model.base.Vehicle;

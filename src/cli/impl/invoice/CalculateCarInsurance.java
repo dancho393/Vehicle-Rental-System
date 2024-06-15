@@ -1,9 +1,9 @@
 package cli.impl.invoice;
 
 
-import cli.command.invoice.calculate.insurance.CalculateCarInsuranceCommand;
-import cli.command.invoice.calculate.insurance.CalculateCarInsuranceRequest;
-import cli.command.invoice.calculate.insurance.CalculateCarInsuranceResponse;
+import cli.command.invoice.calculate.car.insurance.CalculateCarInsuranceCommand;
+import cli.command.invoice.calculate.car.insurance.CalculateCarInsuranceRequest;
+import cli.command.invoice.calculate.car.insurance.CalculateCarInsuranceResponse;
 
 
 public class CalculateCarInsurance implements CalculateCarInsuranceCommand {
@@ -35,7 +35,7 @@ public class CalculateCarInsurance implements CalculateCarInsuranceCommand {
 
         );
     }
-    public double roundNumber(double number){
+    private double roundNumber(double number){
         return Math.round(number*100.0)/100.0;
     }
 

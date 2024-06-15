@@ -1,7 +1,8 @@
 package config;
 
-import cli.command.invoice.calculate.insurance.CalculateCarInsuranceCommand;
-import cli.command.invoice.calculate.rental.CalculateCarRentalCommand;
+import cli.command.invoice.calculate.car.insurance.CalculateCarInsuranceCommand;
+import cli.command.invoice.calculate.car.rental.CalculateCarRentalCommand;
+import cli.command.invoice.calculate.motorcycle.insurance.CalculateMotorcycleInsuranceCommand;
 import cli.command.rental.create.CreateRentalCommand;
 import cli.command.rental.create.CreateRentalRequest;
 import cli.command.user.create.CreateUserCommand;
@@ -9,6 +10,7 @@ import cli.command.user.create.CreateUserRequest;
 import cli.command.vehicle.find.FindVehicleCommand;
 import cli.impl.invoice.CalculateCarInsurance;
 import cli.impl.invoice.CalculateCarRental;
+import cli.impl.invoice.CalculateMotorcycleInsurance;
 import cli.impl.rental.CreateRental;
 import cli.impl.user.CreateUser;
 import cli.impl.vehicle.FindVehicle;
@@ -41,12 +43,13 @@ public class StartUpData {
     }
     private void  createVehicles(){
         Vehicle vehicle = new Car("BMW","540i",15000.0,20.0,15.0,new HashSet<>(),0.01,3);
-        Vehicle vehicle1 = new Motorcycle("Honda","600cc",20000.0,15.0,10.0,new HashSet<>(),0.02);
+        Vehicle vehicle1 = new Motorcycle("Honda","600cc",10000.0,15.0,10.0,new HashSet<>(),0.02);
         Vehicle vehicle2 = new Van("Mercedes","V2000",70000.0,50.0,40.0,new HashSet<>(),0.03);
         VehicleRental.getInstance().addVehicle(vehicle);
         VehicleRental.getInstance().addVehicle(vehicle1);
         VehicleRental.getInstance().addVehicle(vehicle2);
         createRental(vehicle);
+        createRental(vehicle1);
 
     }
     private void createRental(Vehicle vehicle){
@@ -63,8 +66,13 @@ public class StartUpData {
             FindVehicleCommand findVehicleCommand = new FindVehicle();
             CalculateCarInsuranceCommand calculateCarInsuranceCommand= new CalculateCarInsurance();
         CalculateCarRentalCommand calculateCarRentalCommand = new CalculateCarRental();
+        CalculateMotorcycleInsuranceCommand calculateMotorcycleInsuranceCommand = new CalculateMotorcycleInsurance();
 
-            CreateRentalCommand createRentalCommand = new CreateRental(findVehicleCommand,calculateCarInsuranceCommand,calculateCarRentalCommand);
+            CreateRentalCommand createRentalCommand = new CreateRental(
+                            findVehicleCommand,
+                            calculateCarInsuranceCommand,
+                            calculateCarRentalCommand,
+                            calculateMotorcycleInsuranceCommand);
             System.out.println(createRentalCommand.execute(request).toString());
         }
 
