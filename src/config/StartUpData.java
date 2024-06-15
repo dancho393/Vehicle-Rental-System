@@ -1,8 +1,10 @@
 package config;
 
 import cli.command.invoice.calculate.car.insurance.CalculateCarInsuranceCommand;
-import cli.command.invoice.calculate.car.rental.CalculateCarRentalCommand;
+
 import cli.command.invoice.calculate.motorcycle.insurance.CalculateMotorcycleInsuranceCommand;
+import cli.command.invoice.calculate.rental.CalculateVehicleRentalCommand;
+import cli.command.invoice.calculate.van.insurance.CalculateVanInsuranceCommand;
 import cli.command.rental.create.CreateRentalCommand;
 import cli.command.rental.create.CreateRentalRequest;
 import cli.command.user.create.CreateUserCommand;
@@ -11,6 +13,7 @@ import cli.command.vehicle.find.FindVehicleCommand;
 import cli.impl.invoice.CalculateCarInsurance;
 import cli.impl.invoice.CalculateCarRental;
 import cli.impl.invoice.CalculateMotorcycleInsurance;
+import cli.impl.invoice.CalculateVanInsurance;
 import cli.impl.rental.CreateRental;
 import cli.impl.user.CreateUser;
 import cli.impl.vehicle.FindVehicle;
@@ -50,6 +53,7 @@ public class StartUpData {
         VehicleRental.getInstance().addVehicle(vehicle2);
         createRental(vehicle);
         createRental(vehicle1);
+        createRental(vehicle2);
 
     }
     private void createRental(Vehicle vehicle){
@@ -65,14 +69,16 @@ public class StartUpData {
             );
             FindVehicleCommand findVehicleCommand = new FindVehicle();
             CalculateCarInsuranceCommand calculateCarInsuranceCommand= new CalculateCarInsurance();
-        CalculateCarRentalCommand calculateCarRentalCommand = new CalculateCarRental();
+        CalculateVehicleRentalCommand calculateCarRentalCommand = new CalculateCarRental();
         CalculateMotorcycleInsuranceCommand calculateMotorcycleInsuranceCommand = new CalculateMotorcycleInsurance();
+        CalculateVanInsuranceCommand calculateVanInsuranceCommand = new CalculateVanInsurance();
 
             CreateRentalCommand createRentalCommand = new CreateRental(
                             findVehicleCommand,
                             calculateCarInsuranceCommand,
                             calculateCarRentalCommand,
-                            calculateMotorcycleInsuranceCommand);
+                            calculateMotorcycleInsuranceCommand,
+                            calculateVanInsuranceCommand);
             System.out.println(createRentalCommand.execute(request).toString());
         }
 

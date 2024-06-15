@@ -1,14 +1,14 @@
-package cli.command.invoice.calculate.car.rental;
+package cli.command.invoice.calculate.rental;
 
 import cli.base.CommandRequest;
 import model.base.Vehicle;
 
-public class CalculateCarRentalRequest implements CommandRequest {
+public class CalculateVehicleRentalRequest implements CommandRequest {
     private Vehicle vehicle;
     private int days;
     private int actualDays;
 
-    public CalculateCarRentalRequest(Vehicle vehicle, int days, int actualDays) {
+    public CalculateVehicleRentalRequest(Vehicle vehicle, int days, int actualDays) {
         this.vehicle = vehicle;
         this.days = days;
         this.actualDays = actualDays;

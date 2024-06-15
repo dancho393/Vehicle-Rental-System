@@ -1,13 +1,13 @@
-package cli.command.invoice.calculate.car.rental;
+package cli.command.invoice.calculate.rental;
 
 import cli.base.CommandResponse;
 
-public class CalculateCarRentalResponse implements CommandResponse {
+public class CalculateVehicleRentalResponse implements CommandResponse {
     private double rentalPrice;
     private int daysWithHalfPrice;
     private double pricePerDay;
 
-    public CalculateCarRentalResponse(double rentalPrice, int daysWithHalfPrice, double pricePerDay) {
+    public CalculateVehicleRentalResponse(double rentalPrice, int daysWithHalfPrice, double pricePerDay) {
         this.rentalPrice = rentalPrice;
         this.daysWithHalfPrice = daysWithHalfPrice;
         this.pricePerDay = pricePerDay;

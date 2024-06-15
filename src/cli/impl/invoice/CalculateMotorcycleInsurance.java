@@ -3,8 +3,6 @@ package cli.impl.invoice;
 import cli.command.invoice.calculate.motorcycle.insurance.CalculateMotorcycleInsuranceCommand;
 import cli.command.invoice.calculate.motorcycle.insurance.CalculateMotorcycleInsuranceRequest;
 import cli.command.invoice.calculate.motorcycle.insurance.CalculateMotorcycleInsuranceResponse;
-import model.user.LoggedUser;
-import model.user.User;
 
 public class CalculateMotorcycleInsurance implements CalculateMotorcycleInsuranceCommand {
     @Override

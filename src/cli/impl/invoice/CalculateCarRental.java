@@ -1,19 +1,20 @@
 package cli.impl.invoice;
 
-import cli.command.invoice.calculate.car.rental.CalculateCarRentalCommand;
-import cli.command.invoice.calculate.car.rental.CalculateCarRentalRequest;
-import cli.command.invoice.calculate.car.rental.CalculateCarRentalResponse;
 
-public class CalculateCarRental implements CalculateCarRentalCommand {
+import cli.command.invoice.calculate.rental.CalculateVehicleRentalCommand;
+import cli.command.invoice.calculate.rental.CalculateVehicleRentalRequest;
+import cli.command.invoice.calculate.rental.CalculateVehicleRentalResponse;
+
+public class CalculateCarRental implements CalculateVehicleRentalCommand {
     @Override
-    public CalculateCarRentalResponse execute(CalculateCarRentalRequest request) {
+    public CalculateVehicleRentalResponse execute(CalculateVehicleRentalRequest request) {
         double totalRentalPrice = calculateRentalPriceForDays(
                 request.getDays(),
                 request.getActualDays(),
                 request.getVehicle().getShortPeriodRentalPrice(),
                 request.getVehicle().getLongPeriodRentalPrice() );
         int daysWithHalfPrice= request.getDays()-request.getActualDays();
-        return new CalculateCarRentalResponse(
+        return new CalculateVehicleRentalResponse(
                 roundNumber(totalRentalPrice),
                 daysWithHalfPrice,
                 roundNumber(totalRentalPrice/request.getDays()));
