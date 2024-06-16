@@ -1,4 +1,4 @@
-My solution has 3 packages config,model and cli:
+My solution has 3 main packages config,model and cli:
 model contrains all the classes like(invoice,vehicle and similar)
 config contains the start up data 
 cli contrains all calculations and methods for creating classes
