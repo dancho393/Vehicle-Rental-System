@@ -1,7 +1,6 @@
 package cli.command.rental.create;
 
 import cli.base.CommandResponse;
-import model.base.Rental;
 
 public class CreateRentalResponse implements CommandResponse {
     private String rental;

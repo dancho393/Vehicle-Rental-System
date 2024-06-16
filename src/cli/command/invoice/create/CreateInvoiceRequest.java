@@ -1,6 +1,9 @@
-package model;
+package cli.command.invoice.create;
 
-public  class Invoice {
+import cli.base.CommandRequest;
+import model.Rental;
+
+public class CreateInvoiceRequest implements CommandRequest {
     private double rentalPerDay;
     private double insurancePerDay;
     private double discountPerDay;
@@ -12,7 +15,7 @@ public  class Invoice {
     private double totalPrice;
     private Rental rental;
 
-    public Invoice(double rentalPerDay, double insurancePerDay, double discountPerDay, double addPerDay, double rentalPrice, double insurancePrice, double discountPrice, double addPricey, double totalPrice, Rental rental) {
+    public CreateInvoiceRequest(double rentalPerDay, double insurancePerDay, double discountPerDay, double addPerDay, double rentalPrice, double insurancePrice, double discountPrice, double addPricey, double totalPrice, Rental rental) {
         this.rentalPerDay = rentalPerDay;
         this.insurancePerDay = insurancePerDay;
         this.discountPerDay = discountPerDay;
@@ -103,20 +106,5 @@ public  class Invoice {
 
     public void setRental(Rental rental) {
         this.rental = rental;
-    }
-
-    @Override
-    public String toString() {
-        return "" +
-                "rentalPerDay=" + rentalPerDay +"\n"+
-                ", insurancePerDay=" + insurancePerDay+"\n" +
-                ", discountPerDay=" + discountPerDay +"\n"+
-                ", addPerDay=" + addPerDay +"\n"+
-                ", rentalPrice=" + rentalPrice +"\n"+
-                ", insurancePrice=" + insurancePrice+"\n" +
-                ", discountPrice=" + discountPrice +"\n"+
-                ", addPricey=" + addPricey +"\n"+
-                ", totalPrice=" + totalPrice+"\n" +
-                ", rental=" + rental+"\n" ;
     }
 }

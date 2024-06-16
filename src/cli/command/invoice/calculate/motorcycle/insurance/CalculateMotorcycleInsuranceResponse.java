@@ -7,26 +7,39 @@ public class CalculateMotorcycleInsuranceResponse implements CommandResponse {
     private double initialInsurancePrice;
     private double expectedInsurancePrice;
     private double lowAgeInsurancePricePerDay;
+    private double lowAgeInsurancePrice;
     private  double discountForEarlyReturn;
+    private double discountPerDay;
     private double actualInsurancePricePerDay;
     private  double actualInsurancePrice;
 
 
-    public CalculateMotorcycleInsuranceResponse(
-            double initialInsurancePerDay,
-            double initialInsurancePrice,
-            double expectedInsurancePrice,
-            double lowAgeInsurancePricePerDay,
-            double discountForEarlyReturn,
-            double actualInsurancePricePerDay,
-            double actualInsurancePrice) {
+    public CalculateMotorcycleInsuranceResponse(double initialInsurancePerDay, double initialInsurancePrice, double expectedInsurancePrice, double lowAgeInsurancePricePerDay, double lowAgeInsurancePrice, double discountForEarlyReturn, double discountPerDay, double actualInsurancePricePerDay, double actualInsurancePrice) {
         this.initialInsurancePerDay = initialInsurancePerDay;
         this.initialInsurancePrice = initialInsurancePrice;
         this.expectedInsurancePrice = expectedInsurancePrice;
         this.lowAgeInsurancePricePerDay = lowAgeInsurancePricePerDay;
+        this.lowAgeInsurancePrice = lowAgeInsurancePrice;
         this.discountForEarlyReturn = discountForEarlyReturn;
+        this.discountPerDay = discountPerDay;
         this.actualInsurancePricePerDay = actualInsurancePricePerDay;
         this.actualInsurancePrice = actualInsurancePrice;
+    }
+
+    public double getLowAgeInsurancePrice() {
+        return lowAgeInsurancePrice;
+    }
+
+    public void setLowAgeInsurancePrice(double lowAgeInsurancePrice) {
+        this.lowAgeInsurancePrice = lowAgeInsurancePrice;
+    }
+
+    public double getDiscountPerDay() {
+        return discountPerDay;
+    }
+
+    public void setDiscountPerDay(double discountPerDay) {
+        this.discountPerDay = discountPerDay;
     }
 
     @Override

@@ -4,18 +4,28 @@ import cli.base.CommandResponse;
 
 public class CalculateCarInsuranceResponse implements CommandResponse {
     private double initialInsurancePerDay;
-
+    private double discountPerDay;
     private double earlyReturnDiscount;
     private double highSafetyDiscount;
     private double totalInsurance;
 
-    public CalculateCarInsuranceResponse(double initialInsurancePerDay, double earlyReturnDiscount, double highSafetyDiscount, double totalInsurance) {
+    public CalculateCarInsuranceResponse(double initialInsurancePerDay, double discountPerDay, double earlyReturnDiscount, double highSafetyDiscount, double totalInsurance) {
         this.initialInsurancePerDay = initialInsurancePerDay;
-
-
+        this.discountPerDay = discountPerDay;
         this.earlyReturnDiscount = earlyReturnDiscount;
         this.highSafetyDiscount = highSafetyDiscount;
         this.totalInsurance = totalInsurance;
+    }
+
+    @Override
+    public String toString() {
+        return "CalculateCarInsuranceResponse{" +
+                "initialInsurancePerDay=" + initialInsurancePerDay +
+                ", discountPerDay=" + discountPerDay +
+                ", earlyReturnDiscount=" + earlyReturnDiscount +
+                ", highSafetyDiscount=" + highSafetyDiscount +
+                ", totalInsurance=" + totalInsurance +
+                '}';
     }
 
     public double getInitialInsurancePerDay() {
@@ -26,14 +36,12 @@ public class CalculateCarInsuranceResponse implements CommandResponse {
         this.initialInsurancePerDay = initialInsurancePerDay;
     }
 
-    @Override
-    public String toString() {
-        return "Insurance{" +
-                "initialInsurancePerDay=" + initialInsurancePerDay +
-                ", earlyReturnDiscount=" + earlyReturnDiscount +
-                ", highSafetyDiscount=" + highSafetyDiscount +
-                ", totalInsurance=" + totalInsurance +
-                '}';
+    public double getDiscountPerDay() {
+        return discountPerDay;
+    }
+
+    public void setDiscountPerDay(double discountPerDay) {
+        this.discountPerDay = discountPerDay;
     }
 
     public double getEarlyReturnDiscount() {

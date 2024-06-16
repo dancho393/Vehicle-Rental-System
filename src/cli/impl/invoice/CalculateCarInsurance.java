@@ -29,7 +29,8 @@ public class CalculateCarInsurance implements CalculateCarInsuranceCommand {
             double totalPrice=actualPrice-discountByEarlyReturn-discountForHighSafety;
         return new CalculateCarInsuranceResponse(
             roundNumber(actualPricePerDay),
-                roundNumber(discountByEarlyReturn),
+                (discountByEarlyReturn+discountForHighSafety)/request.getActualDays(),
+                roundNumber(discountByEarlyReturn/request.getActualDays()),
                 roundNumber(discountForHighSafety),
                 roundNumber(totalPrice)
 
@@ -47,7 +48,7 @@ public class CalculateCarInsurance implements CalculateCarInsuranceCommand {
         return days*calculateInsurancePerDay(insurancePercentagePerDay,carValue) ;
     }
     private double calculateInsurancePerDay(double insurancePercentagePerDay,double carValue){
-        return (insurancePercentagePerDay*insurancePercentagePerDay)*carValue;
+        return (insurancePercentagePerDay*(carValue/100));
     }
 
 }

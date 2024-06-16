@@ -1,6 +1,7 @@
-package model.base;
+package model;
 
-import model.Invoice;
+import model.base.Vehicle;
+import model.vehicle.Car;
 
 import java.time.LocalDate;
 
@@ -82,16 +83,22 @@ public class Rental {
 
     @Override
     public String toString() {
-        return "Rented Vehicle: " +vehicle.getBrand()+" "+vehicle.getModel()+"\n"
+
+        return "Rented Vehicle: " +vehicle.getBrand()+" "+vehicle.getModel()+"\n"+"And "+ vehicle.toString()
                 + "From Date: "+fromDate+"\n"
                 + "Return Date: "+returnDate
                 +"\n"+"Days: "+days+"\n"
                 +"Actual/Days: "+actualDays+"\n"
-                +"Rental Cost Per Day:"+invoice.getRentalCostPerDay()+"\n"
-                +"Insurance Cost Per Day:"+invoice.getInsuranceCostPerDay()+"\n"
-                +"Total Rent:"+invoice.getTotalRentCost()+"\n"
-                +"Total Insurance:"+invoice.getTotalInsuranceCost()+"\n"
-                +"Total Price:"+invoice.getTotalPrice()+"\n";
+                +"Rental Cost Per Day:"+invoice.getRentalPerDay()+"\n"
+                +"Insurance Cost Per Day:"+invoice.getInsurancePerDay()+"\n"
+                +"Discount Per Day:"+invoice.getDiscountPerDay()+"\n"
+                +"Add Per Day:"+invoice.getAddPerDay()+"\n"
+
+                +"Total Rent:"+invoice.getRentalPrice()+"\n"
+                +"Total Insurance:"+invoice.getInsurancePrice()+"\n"
+                +"Total Discount:"+invoice.getDiscountPrice()+"\n"
+                +"Total Add:"+invoice.getAddPricey()+"\n"
+                +"Total Price:"+invoice.getTotalPrice()+"\n\n\n\n";
 
     }
 }

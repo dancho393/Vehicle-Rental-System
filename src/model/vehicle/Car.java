@@ -1,6 +1,6 @@
 package model.vehicle;
 
-import model.base.Rental;
+import model.Rental;
 import model.base.Vehicle;
 
 import java.util.Set;
@@ -41,4 +41,9 @@ public class Car extends Vehicle {
     private boolean checkIsHighlySafe(int rating){
         return rating>=4;
     };
+
+    @Override
+    public String toString() {
+        return "This Car Has Rating: " + rating ;
+    }
 }

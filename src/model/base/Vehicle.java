@@ -1,5 +1,7 @@
 package model.base;
 
+import model.Rental;
+
 import java.util.Set;
 
 public abstract class Vehicle {

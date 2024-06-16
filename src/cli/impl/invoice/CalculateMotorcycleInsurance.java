@@ -34,7 +34,9 @@ public class CalculateMotorcycleInsurance implements CalculateMotorcycleInsuranc
                 initialInsurancePrice,
                 expectedInsurancePrice,
                 lowAgeInsurancePricePerDay,
+                lowAgeInsurancePricePerDay*request.getActualDays(),
                 discountForEarlyReturn,
+                discountForEarlyReturn/request.getActualDays(),
                 actualInsurancePricePerDay,
                 actualInsurancePrice
         );
@@ -49,6 +51,7 @@ public class CalculateMotorcycleInsurance implements CalculateMotorcycleInsuranc
     private double calculateInsurancePerDay(double insurancePercentagePerDay,double motorcycleValue){
         return (motorcycleValue/100)*insurancePercentagePerDay;
     }
+
     private double extraPriceForLowAge(double insurancePerDay){
         return insurancePerDay/5;
 
