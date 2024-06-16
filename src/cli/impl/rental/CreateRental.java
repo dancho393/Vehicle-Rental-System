@@ -54,6 +54,7 @@ public class CreateRental implements CreateRentalCommand {
 
         CalculateVehicleRentalResponse rentalResponse = calculateCarRentalCommand.execute(buildRentalRequest(vehicle, request));
         Rental rental = buildRental(vehicle, request);
+        System.out.println(rentalResponse.toString());//Just To Be More Specific;
 
         Invoice invoice = calculateInsuranceAndCreateInvoice(vehicle, rental, rentalResponse, request);
         rental.setInvoice(invoice);
@@ -84,16 +85,19 @@ public class CreateRental implements CreateRentalCommand {
         if (vehicle instanceof Car) {
             CalculateCarInsuranceResponse insuranceResponse = calculateCarInsuranceCommand.execute(
                     new CalculateCarInsuranceRequest((Car) vehicle, request.getDays(), request.getActualDays()));
+            System.out.println(insuranceResponse.toString());
             return createInvoiceCommand.execute(buildCarInvoiceRequest(rentalResponse, insuranceResponse, rental)).getInvoice();
 
         } else if (vehicle instanceof Motorcycle) {
             CalculateMotorcycleInsuranceResponse insuranceResponse = calculateMotorcycleInsuranceCommand.execute(
                     new CalculateMotorcycleInsuranceRequest((Motorcycle) vehicle, request.getDays(), request.getActualDays()));
+            System.out.println(insuranceResponse.toString());
             return createInvoiceCommand.execute(buildMotorcycleInvoiceRequest(rentalResponse, insuranceResponse, rental)).getInvoice();
 
         } else if (vehicle instanceof Van) {
             CalculateVanInsuranceResponse insuranceResponse = calculateVanInsuranceCommand.execute(
                     new CalculateVanInsuranceRequest((Van) vehicle, request.getDays(), request.getActualDays()));
+            System.out.println(insuranceResponse.toString());
             return createInvoiceCommand.execute(buildVanInvoiceRequest(rentalResponse, insuranceResponse, rental)).getInvoice();
         }
 
