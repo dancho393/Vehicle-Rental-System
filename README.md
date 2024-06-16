@@ -7,3 +7,4 @@ cli contrains all calculations and methods for creating classes
 -- I have Command interface and CommandRequest(what method gets as an input),CommandReposne(what method return)
 --Every Command has an separate interface,request,reposne which extend the basic ones
 --command package in cli is for the request,response,command class and interfaces and the impl package is for their implementation
+(all methods in the calculation can be made as Commands)
