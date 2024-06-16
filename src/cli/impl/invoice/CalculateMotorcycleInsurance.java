@@ -30,15 +30,15 @@ public class CalculateMotorcycleInsurance implements CalculateMotorcycleInsuranc
 
 
         return new CalculateMotorcycleInsuranceResponse(
-                initialInsurancePerDay,
-                initialInsurancePrice,
-                expectedInsurancePrice,
-                lowAgeInsurancePricePerDay,
-                lowAgeInsurancePricePerDay*request.getActualDays(),
-                discountForEarlyReturn,
-                discountForEarlyReturn/request.getActualDays(),
-                actualInsurancePricePerDay,
-                actualInsurancePrice
+                roundNumber(initialInsurancePerDay),
+                roundNumber(initialInsurancePrice),
+                roundNumber(expectedInsurancePrice),
+                roundNumber(lowAgeInsurancePricePerDay),
+                roundNumber(lowAgeInsurancePricePerDay*request.getActualDays()),
+                roundNumber(discountForEarlyReturn),
+                roundNumber(discountForEarlyReturn/request.getActualDays()),
+                roundNumber(actualInsurancePricePerDay),
+                roundNumber(actualInsurancePrice)
         );
     }
     private double roundNumber(double number){

@@ -29,7 +29,7 @@ public class CalculateCarInsurance implements CalculateCarInsuranceCommand {
             double totalPrice=actualPrice-discountByEarlyReturn-discountForHighSafety;
         return new CalculateCarInsuranceResponse(
             roundNumber(actualPricePerDay),
-                (discountByEarlyReturn+discountForHighSafety)/request.getActualDays(),
+                roundNumber((discountByEarlyReturn+discountForHighSafety)/request.getActualDays()),
                 roundNumber(discountByEarlyReturn/request.getActualDays()),
                 roundNumber(discountForHighSafety),
                 roundNumber(totalPrice)

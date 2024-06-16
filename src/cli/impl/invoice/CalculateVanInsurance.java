@@ -28,16 +28,16 @@ public class CalculateVanInsurance implements CalculateVanInsuranceCommand {
         double actualInsurancePrice = (priceWithExperiencePerDay * request.getActualDays());
 
         return new CalculateVanInsuranceResponse(
-                initialInsurancePerDay,
-                initialInsurancePrice,
-                expectedInsurancePrice,
-                priceWithExperiencePerDay,
-                discountForEarlyReturn,
-                discountForEarlyReturn/request.getActualDays(),
-                discountForExperience(discountForExperience(initialInsurancePerDay)/request.getActualDays()),
-                discountForExperience(initialInsurancePerDay),
-                priceWithExperiencePerDay,
-                actualInsurancePrice
+                roundNumber(initialInsurancePerDay),
+                roundNumber(initialInsurancePrice),
+                roundNumber(expectedInsurancePrice),
+                roundNumber(priceWithExperiencePerDay),
+                roundNumber(discountForEarlyReturn),
+                roundNumber(discountForEarlyReturn/request.getActualDays()),
+                roundNumber(discountForExperience(discountForExperience(initialInsurancePerDay)/request.getActualDays())),
+                roundNumber(discountForExperience(initialInsurancePerDay)),
+                roundNumber(priceWithExperiencePerDay),
+                roundNumber(actualInsurancePrice)
 
         );
     }

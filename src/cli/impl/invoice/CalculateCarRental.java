@@ -17,7 +17,7 @@ public class CalculateCarRental implements CalculateVehicleRentalCommand {
         return new CalculateVehicleRentalResponse(
                 roundNumber(totalRentalPrice),
                 daysWithHalfPrice,
-                roundNumber(totalRentalPrice/request.getDays()));
+                roundNumber(totalRentalPrice/request.getActualDays()));
     }
     private double calculateRentalPriceForDays(
             int days,
