@@ -23,6 +23,7 @@ import cli.command.vehicle.find.FindVehicleRequest;
 import model.Rental;
 import model.Invoice;
 import model.base.Vehicle;
+import model.user.LoggedUser;
 import model.vehicle.Car;
 import model.vehicle.Motorcycle;
 import model.vehicle.Van;
@@ -46,110 +47,101 @@ public class CreateRental implements CreateRentalCommand {
 
     @Override
     public CreateRentalResponse execute(CreateRentalRequest request) {
-        Vehicle vehicle = findVehicleCommand.execute(
-                buildFindVehicleRequest(request.getBrand(), request.getModel())).getVehicle();
-        if(vehicle == null) {
-            return new CreateRentalResponse(null,"Vehicle Was not found");
+        Vehicle vehicle = findVehicleCommand.execute(buildFindVehicleRequest(request.getBrand(), request.getModel())).getVehicle();
+        if (vehicle == null) {
+            return new CreateRentalResponse(null, "Vehicle was not found");
         }
-        Rental rental;
-        Invoice invoice;
-        CalculateVehicleRentalRequest rentalRequest = new CalculateVehicleRentalRequest(vehicle, request.getDays(),request.getActualDays() );
-        CalculateVehicleRentalResponse rentalResponse = calculateCarRentalCommand.execute(rentalRequest);
 
-        System.out.println(rentalResponse.toString());
-        rental = new Rental(
+        CalculateVehicleRentalResponse rentalResponse = calculateCarRentalCommand.execute(buildRentalRequest(vehicle, request));
+        Rental rental = buildRental(vehicle, request);
+
+        Invoice invoice = calculateInsuranceAndCreateInvoice(vehicle, rental, rentalResponse, request);
+        rental.setInvoice(invoice);
+        LoggedUser.getInstance().getUser().getInvoices().add(invoice);
+
+        return new CreateRentalResponse(rental.toString(), "Rental Created");
+    }
+
+    private FindVehicleRequest buildFindVehicleRequest(String brand, String model) {
+        return new FindVehicleRequest(brand, model);
+    }
+
+    private CalculateVehicleRentalRequest buildRentalRequest(Vehicle vehicle, CreateRentalRequest request) {
+        return new CalculateVehicleRentalRequest(vehicle, request.getDays(), request.getActualDays());
+    }
+
+    private Rental buildRental(Vehicle vehicle, CreateRentalRequest request) {
+        return new Rental(
                 request.getActualDays(),
                 request.getDays(),
                 request.getActualReturn(),
                 vehicle,
                 request.getReturnDate(),
                 request.getFromDate());
-        if(vehicle instanceof Car){
-            CalculateCarInsuranceRequest request1 =
-                    new CalculateCarInsuranceRequest((Car)vehicle,request.getDays(), request.getActualDays() );
-
-            CalculateCarInsuranceResponse insuranceResponse = calculateCarInsuranceCommand.execute(request1);
-
-
-            System.out.println(insuranceResponse.toString());
-            CreateInvoiceRequest createInvoiceRequest = new CreateInvoiceRequest(
-                    rentalResponse.getPricePerDay(),
-                    insuranceResponse.getInitialInsurancePerDay(),
-                    insuranceResponse.getEarlyReturnDiscount()+insuranceResponse.getHighSafetyDiscount(),
-                    0,
-                    rentalResponse.getRentalPrice(),
-                    insuranceResponse.getTotalInsurance(),
-                    insuranceResponse.getEarlyReturnDiscount()+insuranceResponse.getHighSafetyDiscount(),
-                    0,
-                    rentalResponse.getRentalPrice()+insuranceResponse.getTotalInsurance(),
-                    rental
-            );
-             invoice = createInvoiceCommand.execute(createInvoiceRequest).getInvoice();
-            rental.setInvoice(invoice);
-
-        }
-        else if(vehicle instanceof Motorcycle){
-            CalculateMotorcycleInsuranceRequest calculateMotorcycleInsuranceRequest =
-                    new CalculateMotorcycleInsuranceRequest(
-                            (Motorcycle)vehicle,
-                            request.getDays(),
-                            request.getActualDays()
-                    );
-            CalculateMotorcycleInsuranceResponse calculateMotorcycleInsuranceResponse =
-                    calculateMotorcycleInsuranceCommand.execute(calculateMotorcycleInsuranceRequest);
-            CreateInvoiceRequest createInvoiceRequest = new CreateInvoiceRequest(
-                    rentalResponse.getPricePerDay(),
-                    calculateMotorcycleInsuranceResponse.getInitialInsurancePerDay(),
-                    calculateMotorcycleInsuranceResponse.getDiscountPerDay(),
-                    calculateMotorcycleInsuranceResponse.getLowAgeInsurancePricePerDay(),
-                    rentalResponse.getRentalPrice(),
-                    calculateMotorcycleInsuranceResponse.getActualInsurancePrice(),
-                    calculateMotorcycleInsuranceResponse.getDiscountPerDay(),
-                    calculateMotorcycleInsuranceResponse.getLowAgeInsurancePrice(),
-                    rentalResponse.getRentalPrice()+calculateMotorcycleInsuranceResponse.getActualInsurancePrice(),
-                    rental
-            );
-             invoice = createInvoiceCommand.execute(createInvoiceRequest).getInvoice();
-            rental.setInvoice(invoice);
-            System.out.println(calculateMotorcycleInsuranceResponse.toString());
-
-        }
-        else if(vehicle instanceof Van){
-            CalculateVanInsuranceRequest calculateVanInsuranceRequest =
-                    new CalculateVanInsuranceRequest(
-                            (Van)vehicle,
-                            request.getDays(),
-                            request.getActualDays()
-                    );
-            CalculateVanInsuranceResponse vanInsuranceResponse =calculateVanInsuranceCommand.execute(calculateVanInsuranceRequest);
-
-            CreateInvoiceRequest createInvoiceRequest = new CreateInvoiceRequest(
-                    rentalResponse.getPricePerDay(),
-                    vanInsuranceResponse.getInitialInsurancePerDay(),
-                    vanInsuranceResponse.getDiscountForEarlyReturnPerDay()+vanInsuranceResponse.getDiscountForExperiencePerDay(),
-                    0,
-                    rentalResponse.getRentalPrice(),
-                    vanInsuranceResponse.getActualInsurancePrice(),
-                    vanInsuranceResponse.getDiscountForEarlyReturn()+vanInsuranceResponse.getDiscountForExperience(),
-                    0,
-                    rentalResponse.getRentalPrice()+vanInsuranceResponse.getActualInsurancePrice(),
-                    rental
-            );
-            invoice = createInvoiceCommand.execute(createInvoiceRequest).getInvoice();
-            rental.setInvoice(invoice);
-            System.out.println(vanInsuranceResponse.toString());
-
-        }
-
-
-
-        return new CreateRentalResponse(rental.toString(),"Rental Created");
     }
 
-    private FindVehicleRequest buildFindVehicleRequest(
-            String brand,
-            String model
-    ){
-        return new FindVehicleRequest(brand, model);
+    private Invoice calculateInsuranceAndCreateInvoice(Vehicle vehicle, Rental rental, CalculateVehicleRentalResponse rentalResponse, CreateRentalRequest request) {
+        if (vehicle instanceof Car) {
+            CalculateCarInsuranceResponse insuranceResponse = calculateCarInsuranceCommand.execute(
+                    new CalculateCarInsuranceRequest((Car) vehicle, request.getDays(), request.getActualDays()));
+            return createInvoiceCommand.execute(buildCarInvoiceRequest(rentalResponse, insuranceResponse, rental)).getInvoice();
+
+        } else if (vehicle instanceof Motorcycle) {
+            CalculateMotorcycleInsuranceResponse insuranceResponse = calculateMotorcycleInsuranceCommand.execute(
+                    new CalculateMotorcycleInsuranceRequest((Motorcycle) vehicle, request.getDays(), request.getActualDays()));
+            return createInvoiceCommand.execute(buildMotorcycleInvoiceRequest(rentalResponse, insuranceResponse, rental)).getInvoice();
+
+        } else if (vehicle instanceof Van) {
+            CalculateVanInsuranceResponse insuranceResponse = calculateVanInsuranceCommand.execute(
+                    new CalculateVanInsuranceRequest((Van) vehicle, request.getDays(), request.getActualDays()));
+            return createInvoiceCommand.execute(buildVanInvoiceRequest(rentalResponse, insuranceResponse, rental)).getInvoice();
+        }
+
+        throw new IllegalArgumentException("Unknown vehicle type");
+    }
+
+    private CreateInvoiceRequest buildCarInvoiceRequest(CalculateVehicleRentalResponse rentalResponse, CalculateCarInsuranceResponse insuranceResponse, Rental rental) {
+        return new CreateInvoiceRequest(
+                rentalResponse.getPricePerDay(),
+                insuranceResponse.getInitialInsurancePerDay(),
+                insuranceResponse.getEarlyReturnDiscount() + insuranceResponse.getHighSafetyDiscount(),
+                0,
+                rentalResponse.getRentalPrice(),
+                insuranceResponse.getTotalInsurance(),
+                insuranceResponse.getEarlyReturnDiscount() + insuranceResponse.getHighSafetyDiscount(),
+                0,
+                rentalResponse.getRentalPrice() + insuranceResponse.getTotalInsurance(),
+                rental
+        );
+    }
+
+    private CreateInvoiceRequest buildMotorcycleInvoiceRequest(CalculateVehicleRentalResponse rentalResponse, CalculateMotorcycleInsuranceResponse insuranceResponse, Rental rental) {
+        return new CreateInvoiceRequest(
+                rentalResponse.getPricePerDay(),
+                insuranceResponse.getInitialInsurancePerDay(),
+                insuranceResponse.getDiscountPerDay(),
+                insuranceResponse.getLowAgeInsurancePricePerDay(),
+                rentalResponse.getRentalPrice(),
+                insuranceResponse.getActualInsurancePrice(),
+                insuranceResponse.getDiscountPerDay(),
+                insuranceResponse.getLowAgeInsurancePrice(),
+                rentalResponse.getRentalPrice() + insuranceResponse.getActualInsurancePrice(),
+                rental
+        );
+    }
+
+    private CreateInvoiceRequest buildVanInvoiceRequest(CalculateVehicleRentalResponse rentalResponse, CalculateVanInsuranceResponse insuranceResponse, Rental rental) {
+        return new CreateInvoiceRequest(
+                rentalResponse.getPricePerDay(),
+                insuranceResponse.getInitialInsurancePerDay(),
+                insuranceResponse.getDiscountForEarlyReturnPerDay() + insuranceResponse.getDiscountForExperiencePerDay(),
+                0,
+                rentalResponse.getRentalPrice(),
+                insuranceResponse.getActualInsurancePrice(),
+                insuranceResponse.getDiscountForEarlyReturn() + insuranceResponse.getDiscountForExperience(),
+                0,
+                rentalResponse.getRentalPrice() + insuranceResponse.getActualInsurancePrice(),
+                rental
+        );
     }
 }

@@ -94,7 +94,7 @@ public class StartUpData {
                             calculateMotorcycleInsuranceCommand,
                             calculateVanInsuranceCommand,
                             createInvoiceCommand);
-            System.out.println(createRentalCommand.execute(request).toString());
+            System.out.println(createRentalCommand.execute(request).toString()+"\n\n");
         }
 
 }
